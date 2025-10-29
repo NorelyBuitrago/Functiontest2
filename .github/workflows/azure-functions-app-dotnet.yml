@@ -2,25 +2,22 @@ name: CI/CD Azure Functions (.NET 9 isolated)
 
 on:
   push:
-    branches: [ "main" ]         # <- cambia si tu rama es otra (ej. master)
+    branches: [ "master" ]   # o "main" si es tu rama
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_NAME: norely-learn-func01     # <- tu Function App en Azure
-  PROJECT_PATH: ./RegisterMes/RegisterMes.csproj  # <- ruta real a tu .csproj
+  AZURE_FUNCTIONAPP_NAME: norely-learn-func01
+  PROJECT_PATH: ./Functiontest2.csproj
   PUBLISH_DIR: ./publish
   DOTNET_VERSION: '9.0.x'
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -33,7 +30,7 @@ jobs:
       - name: Publish
         run: dotnet publish "${{ env.PROJECT_PATH }}" -c Release -o "${{ env.PUBLISH_DIR }}"
 
-      - name: Deploy to Azure Functions
+      - name: Deploy
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
