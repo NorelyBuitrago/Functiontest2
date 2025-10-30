@@ -15,7 +15,7 @@ public class RegisterMes
     {
         var res = req.CreateResponse(HttpStatusCode.OK);
         res.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-        await res.WriteStringAsync("Hermosa Norely lograstev4");
+        await res.WriteStringAsync("Hermosa Norely lograsteveres una diosa");
         return res;
     }
 }
